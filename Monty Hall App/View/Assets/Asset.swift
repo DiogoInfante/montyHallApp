@@ -7,35 +7,33 @@
 
 import UIKit
 
-/// As Monty Hall has many assets this enum lists every asset used on the app
-/// This enum is a string typed so the asset name is equal to the case
-/// There is a get static function to get a UIImage from the asset and handle nil case
+/// Enumeration of asset catalog image names used throughout the app
 enum Asset: String {
-    /// Empty
     case empty
-    // MARK: - Common
-    /// Backgrounds
+
+    // MARK: - Common Assets
+
     case background
     case smoothBackground
-    /// Main
     case goat
     case car
-    /// Top Bar
     case discoOn
     case discoOff
     case pop
-    /// Others
     case next
     case back
     case yes
     case no
-    // MARK: - Scenes
-    /// Home Scene
+
+    // MARK: - Scene Assets
+
+    // Home
     case banner
     case play
     case experiment
     case book
-    /// Puzzle Scene
+
+    // Puzzle
     case panel
     case stage
     case choice
@@ -43,7 +41,8 @@ enum Asset: String {
     case door
     case carDoor
     case goatDoor
-    /// Experiment Scene
+
+    // Experiment
     case picker
     case lever
     case rail
@@ -51,12 +50,10 @@ enum Asset: String {
     case shuffleSymbol
     case repeatSymbol
     case experimentBoard
-    // MARK: - Methods
-    /// Gets an UIImage from given asset if it's a valid one.
-    /// - Parameters:
-    ///     - asset: A case from Assets enum that is also the image name
-    /// - Returns:
-    ///     - A UIImage from the given asset
+
+    // MARK: - Image Retrieval
+
+    /// Retrieves the `UIImage` corresponding to the asset case
     static func get(_ asset: Asset) -> UIImage {
         guard let image = UIImage(named: asset.rawValue) else {
             return UIImage()
@@ -64,3 +61,4 @@ enum Asset: String {
         return image
     }
 }
+

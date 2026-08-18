@@ -6,18 +6,14 @@
 //
 
 import UIKit
-import Foundation
 
-/// Puzzle Delegate conforms to all delegate protocols needed on the PuzzleVC
-/// SubProtocols:
-///    - UICollectionViewDelegate: Collection view delegate
-///    - UICollectionViewDataSource: Collection data source
-///    - StateObserver: State machine observer
+/// Composite protocol grouping UICollectionView and StateObserver delegates for PuzzleVC
 protocol PuzzleDelegate: UICollectionViewDelegate, UICollectionViewDataSource, StateObserver {
     var scene: PuzzleView { get set }
     var stateMachine: StateMachine { get set }
     func set(delegate: PuzzleDelegate)
 }
+
 extension PuzzleDelegate {
     func set(delegate: PuzzleDelegate) {
         stateMachine.delegate = self
@@ -25,3 +21,4 @@ extension PuzzleDelegate {
         scene.collection.dataSource = self
     }
 }
+

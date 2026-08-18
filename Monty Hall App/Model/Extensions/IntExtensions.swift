@@ -7,13 +7,17 @@
 
 import Foundation
 
-/// Int Array Extensions
+/// Extensions on integer arrays for formatted output
 extension Array where Element == Int {
+
+    /// Returns a new array with a constant added to each element
     func increment(_ constant: Int) -> [Int] {
-        return self.map { $0 + 1 }
+        return self.map { $0 + constant }
     }
+
+    /// Returns a joined string of all elements separated by the given delimiter
     func getString(separator: String = ",") -> String {
-        let stringArray = self.map { String($0) }
-        return stringArray.joined(separator: separator)
+        return self.map(String.init).joined(separator: separator)
     }
 }
+

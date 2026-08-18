@@ -7,10 +7,9 @@
 
 import Foundation
 
-/// Second Choice Options
-///     - Keep door: Mantain first choice
-///     - Switch door: Switches to ohter
+/// Options for the player's second choice strategy
 enum SecondChoice {
     case keepDoor
     case switchDoor
 }
+

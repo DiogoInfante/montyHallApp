@@ -7,23 +7,26 @@
 
 import UIKit
 
-/// Tutorial View Controller
-/// This page explains the solution to monty hall problem
+/// View controller presenting the explanation of the Monty Hall problem
 class TutorialVC: BaseViewController<NavigationView> {
-    /// Initializes a TutorialVC.
+
+    // MARK: - Initialization
+
     init() {
         super.init(scene: TutorialView())
     }
-    /// View did load cycle.
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        /// Background
-        self.contentView.update(.smoothBackground)
-        /// Scene setup
-        view.addSubview(scene)
-        scene.setScene(root: contentView)
-    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.contentView.update(.smoothBackground)
+        view.addSubview(scene)
+        scene.setScene(root: contentView)
+    }
 }
+

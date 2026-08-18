@@ -7,19 +7,21 @@
 
 import UIKit
 
-/// Asset View is a custom view which inherits from UIImageView.
-/// It has a generic typed UIView as a subview.
-/// The respective subview will be on front of the asset on the hierarchy and inherits parents contraints.
+/// Custom `UIImageView` containing a generic subview overlaid with specified scaling constraints
 class AssetView<T: UIView>: UIImageView {
-    /// Generic typed UIView.
+
+    // MARK: - Properties
+
     var subView: T
-    /// Scale of the subview in reference to parent.
     var scale: CGFloat
-    /// Initializes a asset view.
-    ///     - asset: Asset to be given as background image.
-    ///     - subView: Type of subview - should conform with UIView.
-    ///     - scale: In reference to parent view.
-    /// - Returns: A asset view containing a custom subview and a background image view.
+
+    // MARK: - Initialization
+
+    /// Initializes an asset view with an asset image and embedded subview
+    /// - Parameters:
+    ///   - asset: Asset image case used as background
+    ///   - subView: Embedded subview instance
+    ///   - scale: Scale factor relative to container
     init(_ asset: Asset = .empty, subView: T = T(), _ scale: CGFloat = 1) {
         self.subView = subView
         self.scale = scale
@@ -27,20 +29,22 @@ class AssetView<T: UIView>: UIImageView {
         self.isUserInteractionEnabled = true
         setup(subView)
     }
-    /// Setups subView.
-    /// - Parameters:
-    ///     - subView: A generic UIView.
-    func setup<T: UIView>(_ subView: T) {
-        self.addSubview(subView)
-        subView.constraint(to: self, multiplier: self.scale)
-    }
-    /// Updates background image.
-    /// - Parameters:
-    ///     - newAsset: A asset that corresponds to the new image
-    func update(_ newAsset: Asset) {
-        self.image = Asset.get(newAsset)
-    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Setup & Configuration
+
+    /// Configures layout and constraints for embedded subview
+    func setup(_ subView: T) {
+        self.addSubview(subView)
+        subView.constraint(to: self, multiplier: self.scale)
+    }
+
+    /// Updates background image using a new asset
+    func update(_ newAsset: Asset) {
+        self.image = Asset.get(newAsset)
+    }
 }
+

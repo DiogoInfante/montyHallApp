@@ -5,52 +5,63 @@
 //  Created by Diogo Infante on 30/10/21.
 //
 
-import UIKit
+import Foundation
 
-/// Game Interactor Observer Protocol
-/// It should be able to change state caused by an event from a state to another
-/// Error event at a state
+// MARK: - StateObserver
+
+/// Observer protocol notified when state changes occur in the state machine
 protocol StateObserver: AnyObject {
     func changingStateFor(event: GameEvent,
                           from oldState: GameState,
                           to newState: GameState)
 }
-/// State Machine responsible to deal with change of states trigged by events
+
+// MARK: - StateMachine
+
+/// State machine managing gameplay transitions driven by game events
 class StateMachine {
-    /// Current state of observed VC
+
+    // MARK: - Properties
+
     private(set) var currentState: GameState = .idle
-    /// Current observed VC
     weak var delegate: StateObserver?
-    /// Initializes a State Machine
+
+    // MARK: - Initialization
+
     init(_ firstState: GameState = .idle) {
         self.currentState = firstState
-        debugPrint("Initialized a state machine with: \(currentState)")
+        debugPrint("Initialized state machine with state: \(currentState)")
     }
-    /// State Change
-    /// Changes the state with an event to newState
-    /// - Parameters:
-    ///     - event: GameEvent
-    ///     - newState: GameState
+
+    // MARK: - State Transition Logic
+
     private func changeState(with event: GameEvent, to newState: GameState) {
         guard let observedVC = delegate else { return }
         debugPrint("Event:", event, "State changed from:", currentState, "to:", newState)
         observedVC.changingStateFor(event: event, from: currentState, to: newState)
         currentState = newState
     }
-    /// 1 - Start from .waiting for first choice
+
+    // MARK: - Event Triggers
+
+    /// Transition from initial state to waiting for first choice
     func start() {
         changeState(with: .start, to: .waitingForFirstChoice)
     }
-    /// 2 - Made first choice
+
+    /// Record first choice selection
     func madeFirstChoice(_ id: Int) {
         changeState(with: .madeFirstChoice(id), to: .waitingForSecondChoice)
     }
-    /// 3 - Made second choice
+
+    /// Record second choice selection
     func madeSecondChoice(_ choice: SecondChoice) {
         changeState(with: .madeSecondChoice(choice), to: .ended)
     }
-    /// 4 - Reset
+
+    /// Reset game to initial active state
     func reset() {
         changeState(with: .reset, to: .waitingForFirstChoice)
     }
 }
+

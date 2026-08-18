@@ -7,7 +7,8 @@
 
 import Foundation
 
-/// Error Event
+/// Error event for state machine exception handling
 enum ErrorEvent {
     case error
 }
+

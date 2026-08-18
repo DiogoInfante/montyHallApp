@@ -7,10 +7,11 @@
 
 import Foundation
 
-/// Available Game Events
+/// Game events triggered during gameplay
 enum GameEvent: Equatable {
     case start
     case madeFirstChoice(Int)
     case madeSecondChoice(SecondChoice)
     case reset
 }
+

@@ -7,61 +7,63 @@
 
 import Foundation
 
-/// Oberserver Protocol
-/// stateUpdated: Sends a message of door state update
-/// prizeUpdated: Sends a message of prize state update
+// MARK: - ObserverProtocol
+
+/// Protocol for observing door state and prize changes
 protocol ObserverProtocol: AnyObject {
     func stateUpdated(_ newState: DoorState)
     func prizeUpdated(_ isPrized: Bool)
 }
-/// Door Model: Subject
+
+// MARK: - Door
+
+/// Door model representing a single door in the Monty Hall problem
 class Door {
-    /// id
+
+    // MARK: - Properties
+
     let id: Int
-    /// State: Initializes closed
-    private var _state: DoorState = .closed
-    /// isPrized: Indicates if the door is prized
-    private var _isPrized: Bool = false
-    /// Update state notifying observer
-    var state: DoorState {
-        get {
-            return _state
-        }
-        set {
-            _state = newValue
+
+    var state: DoorState = .closed {
+        didSet {
             notifyObserver()
         }
     }
-    /// Update prize notifying observer
-    var isPrized: Bool {
-        get {
-            return _isPrized
-        }
-        set {
-            _isPrized = newValue
+
+    var isPrized: Bool = false {
+        didSet {
             notifyObserver()
         }
     }
-    /// Observer
+
     weak var observer: ObserverProtocol?
-    /// Initializes a Door
-    /// - Parameters: id: Door id
+
+    static let null = Door(-1)
+
+    // MARK: - Initialization
+
     init(_ id: Int) {
         self.id = id
     }
-    /// Notification
+
+    // MARK: - Private Methods
+
     private func notifyObserver() {
-        observer?.stateUpdated(_state)
-        observer?.prizeUpdated(_isPrized)
+        observer?.stateUpdated(state)
+        observer?.prizeUpdated(isPrized)
     }
-    static let null = Door(-1)
 }
-/// Doors States
+
+// MARK: - DoorState
+
+/// State of a door (opened or closed)
 enum DoorState {
     case opened
     case closed
-    /// Toggle function changes a coord state
+
+    /// Toggles the door state between opened and closed
     mutating func toggle() {
-        self = self == .opened ? .closed : .opened
+        self = (self == .opened) ? .closed : .opened
     }
 }
+

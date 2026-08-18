@@ -7,54 +7,61 @@
 
 import UIKit
 
-/// Experiment View Controller
-/// On this page is possible to simulate multiple cases of monty hall problem
+/// View controller allowing configuration and batch simulation of Monty Hall experiments
 class ExperimentVC: BaseViewController<ExperimentView>, ExperimentDelegate {
-    /// Array with all possible number of doors
-    let numberOfDoors: [Int] = [3,4,5,6,7,8,9,10,15,20,25,50,100,250,500,1000]
-    /// Array with possible second choices
+
+    // MARK: - Properties
+
+    let numberOfDoors: [Int] = [3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 50, 100, 250, 500, 1000]
     let secondChoices: [SecondChoice] = [.keepDoor, .switchDoor]
-    /// Array with all possible number of repetitions
-    let repetitions: [Int] = [1,10,100,500,1000,10000]
-    /// Selected number of doors
+    let repetitions: [Int] = [1, 10, 100, 500, 1000, 10000]
+
     var selectedNumberOfDoors: Int = 3
-    /// Selected second choice
     var selectedSecondChoice: SecondChoice = .keepDoor
-    /// Selected number of repetitions
     var selectedRepetitions: Int = 100
-    /// Initializes a ExperimentVC.
+
+    // MARK: - Initialization
+
     init() {
         super.init(scene: ExperimentView())
     }
-    /// View did load cycle.
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        /// Background
-        self.contentView.update(.smoothBackground)
-        /// Delegates
-        set(delegate: self)
-        /// Scene setup
-        view.addSubview(scene)
-        scene.setScene(root: contentView)
-        /// Sets picker default values
-        pickerDefaults()
-    }
-    /// Runs an experiment - Trigged by lever delegate
-    func endCourse() {
-        let experiment = Experiment(numberOfDoors: selectedNumberOfDoors,
-                                    secondChoice: selectedSecondChoice,
-                                    rounds: selectedRepetitions)
-        experiment.run()
-        scene.panel.displayExperiment(results: experiment.montyHall.results)
-    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.contentView.update(.smoothBackground)
+
+        set(delegate: self)
+        view.addSubview(scene)
+        scene.setScene(root: contentView)
+        pickerDefaults()
+    }
+
+    // MARK: - SliderViewDelegate
+
+    /// Executes the experiment simulation when the lever slider reaches completion
+    func endCourse() {
+        let experiment = Experiment(numberOfDoors: selectedNumberOfDoors,
+                                     secondChoice: selectedSecondChoice,
+                                     rounds: selectedRepetitions)
+        experiment.run()
+        scene.panel.displayExperiment(results: experiment.montyHall.results)
+    }
 }
+
+// MARK: - UIPickerViewDataSource & UIPickerViewDelegate
+
 extension ExperimentVC {
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         for cell in scene.cells {
             switch cell.type {
@@ -74,6 +81,7 @@ extension ExperimentVC {
         }
         return 0
     }
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         for cell in scene.cells {
             switch cell.type {
@@ -93,6 +101,7 @@ extension ExperimentVC {
         }
         return ""
     }
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         for cell in scene.cells {
             switch cell.type {
@@ -114,6 +123,7 @@ extension ExperimentVC {
             }
         }
     }
+
     func pickerDefaults() {
         for cell in scene.cells {
             switch cell.type {
@@ -133,3 +143,4 @@ extension ExperimentVC {
         }
     }
 }
+

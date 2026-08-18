@@ -7,14 +7,14 @@
 
 import Foundation
 
-/// Media Model
-/// It is composed by a title and a type
+/// Media resource model identified by filename title and file extension type
 struct Media {
     let title: String
     let type: String
-    /// Initializes a media
-    init (title: String, type: String) {
+
+    init(title: String, type: String) {
         self.title = title
         self.type = type
     }
 }
+

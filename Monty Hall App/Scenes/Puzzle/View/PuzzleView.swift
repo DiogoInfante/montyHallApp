@@ -1,5 +1,5 @@
 //
-//  PuzzleUserInterface.swift
+//  PuzzleView.swift
 //  Monty Hall App
 //
 //  Created by Diogo Infante on 16/02/21.
@@ -7,89 +7,96 @@
 
 import UIKit
 
-/// Puzzle View
+/// View laying out doors collection, status panel, control buttons, and stage graphics
 class PuzzleView: NavigationView {
-    /// Door collection view
+
+    // MARK: - Properties
+
     let collection = DoorCollectionView()
-    /// Keep choice button
     let choice = ChoiceView()
-    /// Panel view
     let panel = PanelView()
-    /// Stage
     let stage = AssetView(.stage)
-    /// Reset
     let reset = AssetView(.playAgain, subView: UIButton())
-    /// Vertical spacing constant
-    let space = UIScreen.main.bounds.height*0.03
-    /// Initializes a Puzzle View
+
+    let space = UIScreen.main.bounds.height * 0.03
+
+    // MARK: - Initialization
+
     init() {
         super.init()
         setupUI()
     }
-    /// Adds constraints to collection view - Hierarchy 1.
-    fileprivate func collectionViewConstraints() {
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Setup & Layout
+
+    func setupUI() {
+        self.addSubview(collection)
+        setupCollectionViewConstraints()
+
+        self.addSubview(panel)
+        setupPanelConstraints()
+
+        self.addSubview(stage)
+        setupStageConstraints()
+
+        self.addSubview(choice)
+        setupChoiceConstraints()
+        choice.disappear()
+
+        self.addSubview(reset)
+        setupResetConstraints()
+        reset.disappear()
+
+        waitingForFirstChoice()
+    }
+
+    private func setupCollectionViewConstraints() {
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         collection.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         collection.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.95).isActive = true
         collection.heightAnchor.constraint(equalTo: collection.widthAnchor, multiplier: 0.6).isActive = true
     }
-    /// Adds constraints to results - Hierarchy 2.
-    fileprivate func panelConstraints() {
+
+    private func setupPanelConstraints() {
         panel.translatesAutoresizingMaskIntoConstraints = false
         panel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         panel.topAnchor.constraint(equalTo: self.topBar.bottomAnchor).isActive = true
         panel.bottomAnchor.constraint(equalTo: collection.topAnchor, constant: -space).isActive = true
         panel.widthAnchor.constraint(equalTo: panel.heightAnchor, multiplier: 1.65).isActive = true
     }
-    /// Adds constraints to stage - Hierarchy 3.
-    fileprivate func stageConstraints() {
+
+    private func setupStageConstraints() {
         stage.translatesAutoresizingMaskIntoConstraints = false
         stage.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         stage.topAnchor.constraint(equalTo: collection.bottomAnchor, constant: -5).isActive = true
         stage.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         stage.heightAnchor.constraint(equalTo: stage.widthAnchor, multiplier: 0.275).isActive = true
     }
-    /// Adds constraints to results - Hierarchy 4.
-    fileprivate func choiceConstraints() {
+
+    private func setupChoiceConstraints() {
         choice.translatesAutoresizingMaskIntoConstraints = false
         choice.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        choice.topAnchor.constraint(equalTo: stage.bottomAnchor, constant: space/2).isActive = true
-        choice.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -space/2).isActive = true
+        choice.topAnchor.constraint(equalTo: stage.bottomAnchor, constant: space / 2).isActive = true
+        choice.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -space / 2).isActive = true
         choice.widthAnchor.constraint(equalTo: choice.heightAnchor, multiplier: 2).isActive = true
     }
 
-    /// Adds constraints to restart - Hierarchy 5.
-    fileprivate func resetConstraints() {
+    private func setupResetConstraints() {
         reset.translatesAutoresizingMaskIntoConstraints = false
         reset.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         reset.centerYAnchor.constraint(equalTo: choice.centerYAnchor).isActive = true
         reset.heightAnchor.constraint(equalTo: choice.heightAnchor).isActive = true
         reset.widthAnchor.constraint(equalTo: reset.heightAnchor).isActive = true
     }
-    /// Setups UI
-    func setupUI() {
-        /// Hierarchy 1 - Collection View.
-        self.addSubview(collection)
-        collectionViewConstraints()
-        /// Hierarchy 2 - Result.
-        self.addSubview(panel)
-        panelConstraints()
-        /// Hierarchy 4 - Stage.
-        self.addSubview(stage)
-        stageConstraints()
-        /// Hierarchy 3 - Keep Choice.
-        self.addSubview(choice)
-        choiceConstraints()
-        choice.disappear()
-        /// Hierarchy 4 - Restart.
-        self.addSubview(reset)
-        resetConstraints()
-        reset.disappear()
-        /// Start state
-        waitingForFirstChoice()
-    }
-    /// Waiting For First Choice UI Updates
+
+    // MARK: - UI State Updates
+
+    /// UI update when waiting for player's initial door selection
     func waitingForFirstChoice() {
         reset.springAnimation { result in
             if result {
@@ -98,11 +105,13 @@ class PuzzleView: NavigationView {
         }
         panel.tapToChooseADoor()
     }
-    /// Waiting For Second Second UI Updates
+
+    /// UI update when prompt for keep/switch choice appears
     func waitingForSecondChoice() {
         choice.fadeIn()
     }
-    /// Ended UI Updates
+
+    /// UI update after round completion revealing results
     func ended(_ secondChoice: SecondChoice) {
         switch secondChoice {
         case .keepDoor:
@@ -121,7 +130,5 @@ class PuzzleView: NavigationView {
             }
         }
     }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
+

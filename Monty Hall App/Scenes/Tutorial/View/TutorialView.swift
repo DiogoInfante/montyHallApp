@@ -7,13 +7,17 @@
 
 import UIKit
 
-/// Tutorial View
+/// Navigation container view for the tutorial screen
 class TutorialView: NavigationView {
-    /// Initializes a Tutorial View
+
+    // MARK: - Initialization
+
     init() {
         super.init()
     }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

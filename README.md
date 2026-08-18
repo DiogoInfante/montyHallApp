@@ -16,20 +16,20 @@ On this show, there was a game with three doors. Two had goats behind them, and 
 
 This problem became a legend in mathematics, becoming a reason for countless discussions and probably some broken friendships. But now, you will understand for once and for all what to do.
 
+## The Challenge
+
+This app was built for a 2021 Apple Developer Academy challenge, presented to Apple engineers. The brief was to build a solo app around a theme I found intriguing. The Monty Hall problem was an easy pick, since it's famous and counter-intuitive, which made it a great chance to demonstrate. The feedback from Apple was strong, with the app scoring among the highest in the cohort for concept and execution.
+
+Here's the game in action:
+
+https://github.com/user/MontyHallProblem/raw/main/Resources/montyHallProblem.mp4
+
 ## Technicalities:
 
-### Model:
+### Extrapolation:
 
 Despite the game show only having 3 doors, this problem has a higher potential. So I developed a generic model that constructs a Monty Hall Problem with any given number of doors. Greater the number, clearly the logical answer gets. It also tracks your history and can simulate a custom number of games.
 
-### Observer Pattern:
+Below is the simulation mode, extrapolating the problem to *n* cases:
 
-I chose to use this pattern to make the app responsive as possible. For example, when the controller indicates to open a door on the model, the view is automatically notified, and it opens visually too.
-
-![Image of Observer](Resources/observer.png)
-
-### State Machine: 
-
-I created a state machine to coordinate all in-game interactions. By dividing the game into states and events, it becomes trivial to control the actions.
-
-![Image of StateMahine](Resources/StateMachine.png)
+https://github.com/user/MontyHallProblem/raw/main/Resources/montyHallExperiment.mp4
