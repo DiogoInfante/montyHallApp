@@ -22,7 +22,7 @@ This app was built for a 2021 Apple Developer Academy challenge, presented to Ap
 
 Here's the game in action:
 
-https://github.com/user/MontyHallProblem/raw/main/Resources/montyHallProblem.mp4
+https://github.com/DiogoInfante/montyHallApp/raw/main/Resources/montyHallProblem.mp4
 
 ## Technicalities:
 
