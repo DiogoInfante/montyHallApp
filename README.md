@@ -20,9 +20,13 @@ This problem became a legend in mathematics, becoming a reason for countless dis
 
 This app was built for a 2021 Apple Developer Academy challenge, presented to Apple engineers. The brief was to build a solo app around a theme I found intriguing. The Monty Hall problem was an easy pick, since it's famous and counter-intuitive, which made it a great chance to demonstrate. The feedback from Apple was strong, with the app scoring among the highest in the cohort for concept and execution.
 
-Here's the game in action:
+Here's the game in action (click to download):
 
-<video src="https://github.com/DiogoInfante/montyHallApp/raw/main/Resources/montyHallProblem.mp4" controls width="100%"></video>
+<p align="center">
+  <a href="https://raw.githubusercontent.com/DiogoInfante/montyHallApp/main/Resources/montyHallProblem.mp4">
+    <img src="Resources/montyHallProblem_thumbnail.png" alt="Watch the Monty Hall Problem demo" width="300">
+  </a>
+</p>
 
 ## Technicalities:
 
@@ -30,7 +34,11 @@ Here's the game in action:
 
 Despite the game show only having 3 doors, this problem has a higher potential. So I developed a generic model that constructs a Monty Hall Problem with any given number of doors. Greater the number, clearly the logical answer gets. It also tracks your history and can simulate a custom number of games.
 
-Below is the simulation mode, extrapolating the problem to *n* cases:
+Below is the simulation mode, extrapolating the problem to *n* cases (click to download):
 
-<video src="https://github.com/DiogoInfante/montyHallApp/raw/main/Resources/montyHallExperiment.mp4" controls width="100%"></video>
+<p align="center">
+  <a href="https://raw.githubusercontent.com/DiogoInfante/montyHallApp/main/Resources/montyHallExperiment.mp4">
+    <img src="Resources/montyHallExperiment_thumbnail.png" alt="Watch the Monty Hall Experiment demo" width="300">
+  </a>
+</p>
 
