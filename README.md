@@ -22,7 +22,7 @@ This app was built for a 2021 Apple Developer Academy challenge, presented to Ap
 
 Here's the game in action:
 
-https://github.com/DiogoInfante/montyHallApp/raw/main/Resources/montyHallProblem.mp4
+<video src="https://github.com/DiogoInfante/montyHallApp/raw/main/Resources/montyHallProblem.mp4" controls width="100%"></video>
 
 ## Technicalities:
 
@@ -32,4 +32,5 @@ Despite the game show only having 3 doors, this problem has a higher potential. 
 
 Below is the simulation mode, extrapolating the problem to *n* cases:
 
-https://github.com/user/MontyHallProblem/raw/main/Resources/montyHallExperiment.mp4
+<video src="https://github.com/DiogoInfante/montyHallApp/raw/main/Resources/montyHallExperiment.mp4" controls width="100%"></video>
+
