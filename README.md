@@ -1,4 +1,4 @@
-# MontyHallProblem
+# Monty Hall Problem
 
 ## Welcome to the 70s! 🕺
 
